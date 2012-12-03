@@ -1,6 +1,10 @@
-require "memoryfile-test"
+local lunit = require "lunitx"
 
-module("test.pristine", lunit.testcase, package.seeall)
+local TEST_NAME = "test.pristine"
+if _VERSION >= 'Lua 5.2' then  _ENV = lunit.module(TEST_NAME,'seeall')
+else module( TEST_NAME, package.seeall, lunit.testcase ) end
+
+local is = assert_equal
 
 function test_no_global_clobbering ()
     local globals = {}

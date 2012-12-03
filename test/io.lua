@@ -1,7 +1,12 @@
-require "memoryfile-test"
 local MemFile = require "memoryfile"
 
-module("test.io", lunit.testcase, package.seeall)
+local lunit = require "lunitx"
+
+local TEST_NAME = "test.io"
+if _VERSION >= 'Lua 5.2' then  _ENV = lunit.module(TEST_NAME,'seeall')
+else module( TEST_NAME, package.seeall, lunit.testcase ) end
+
+local is = assert_equal
 
 function test_module_metadata ()
     is("string", type(MemFile._VERSION))
